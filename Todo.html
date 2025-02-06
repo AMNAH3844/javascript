@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Todo App</title>
+</head>
+<body>
+    <!-- Input fields for task and due date -->
+    <input id="todo-title" type="text" placeholder="Enter task" />
+    <input id="Date-picker" type="date"/>
+    <button onclick="addToDo()">Add Todo</button>
+
+    <!-- Container for displaying todo list -->
+    <div id="todo-list"></div>
+
+    <script>
+        // Array to store todo tasks
+        let todos = [
+            { title: 'Get groceries', dueDate: '2021-10-04', id: 'id1' },
+            { title: 'Wash Car', dueDate: '2021-02-03', id: 'id2' },
+            { title: 'Make Dinner', dueDate: '2021-03-04', id: 'id3' }
+        ];
+        
+        // Display the existing todos when page loads
+        render();
+
+        // Function to add a new todo
+        function addToDo() {
+            let textbox = document.getElementById('todo-title');
+            const title = textbox.value.trim();  // Remove extra spaces
+            const datePicker = document.getElementById('Date-picker');
+            const dueDate = datePicker.value.trim();  // Get selected due date
+            const id = 'id' + new Date().getTime();  // Generate a unique ID
+
+            // Ensure both task and due date are provided
+            if (title !== '' && dueDate !== '') {
+                todos.push({ title: title, dueDate: dueDate, id: id });
+                textbox.value = '';  // Clear input field
+                datePicker.value = '';  // Clear date field
+                render();  // Refresh the list
+            } else {
+                alert("Please enter both task and due date.");  // Alert user if fields are empty
+            }
+        }
+
+        // Function to delete a todo
+        function deleteTodo(event) {
+            const deleteButton = event.target;  // Get the clicked button
+            const idToDelete = deleteButton.id; // Get the ID of the task to delete
+            
+            // Remove the selected task from the list
+            todos = todos.filter(function(todo) {
+                return todo.id !== idToDelete;  // Keep only tasks that don't match the deleted ID
+            });
+            render();  // Refresh the list
+        }
+
+        // Function to render todos on the page
+        function render() {
+            const todoList = document.getElementById('todo-list');
+            todoList.innerHTML = '';  // Clear previous items to prevent duplication
+
+            todos.forEach(function(todo) {
+                const element = document.createElement('div');
+                element.innerText = todo.title + ' (' + todo.dueDate + ')';  // Display title & date
+
+                // Create delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.style.marginLeft = '12px';
+                deleteButton.onclick = deleteTodo;
+                deleteButton.id = todo.id;  // Assign unique ID
+
+                element.appendChild(deleteButton);  // Attach button
+                todoList.appendChild(element);  // Add to list
+            });
+        }
+        function saveTodos(){
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+    </script>
+</body>
+</html>
