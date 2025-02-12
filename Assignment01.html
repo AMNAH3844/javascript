@@ -1,0 +1,56 @@
+<!-- Task 1: Build a function-based console log message generator
+In this exercise, your task is to code a function named `consoleStyler`, which accepts four parameters:
+- `color``background``fontSize` `txt`
+Inside the body of the consoleStyler() function declaration, you need to do the following:
+1. Create a new variable named message, and assign the following to it on the very first line inside the consoleStyler() function body.: 
+    "%c" + txt;
+2. Create a style variable and assign the following to it on the next line: 
+    `color: ${color};`
+3. Next, update the style variable (using the += operator) with the following code: 
+    `background: ${background};`
+4. Then, update the style variable (again, using the += operator) with the following code: 
+    `font-size: ${fontSize};`
+5. Finally, console log the message and style variables inside the `consoleStyler` function declaration.
+Hint: Be sure to use backticks (``) when updating your variable styles and not single ('') or double ("") quotes. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsoleStyler</title>
+</head>
+<script>
+function consoleStyler(color, background, fontSize, txt) {
+    let message = "%c" + txt;
+    let style = `color: ${color};`;
+    style += `background: ${background};`;
+    style += `font-size: ${fontSize};`;
+    console.log(message, style);
+}
+consoleStyler("Black", "Orange", "30px", "MY FIRST JAVASCRIPT TASK BY ELUMNI!");
+// Task-b
+function celebrateStyler(reason) {
+    const fontStyle = "color: tomato; font-size: 50px";
+    if (reason === "birthday") {
+        console.log(`%cHappy birthday`, fontStyle);
+    } else if (reason === "champions") {
+        console.log(`%cCongrats on the title!`, fontStyle);
+    } else {
+        console.log(`%cHave a nice Day!`, fontStyle);
+    }
+}
+celebrateStyler("champions");
+//TASK-C 
+consoleStyler('#1d5c63','#ede6db','40px','Congrats!');
+celebrateStyler('birthday');
+
+//TASK-D
+function styleAndCelebrate(color, background, fontSize, txt, reason) {
+    consoleStyler(color, background, fontSize, txt);
+    celebrateStyler(reason);
+}
+styleAndCelebrate('ef7c8e', 'fae8e0', '30px', 'You made it!', 'champions');
+</script>
+<body> 
+</body>
+</html>
